@@ -1,4 +1,8 @@
-import express from 'express';
+import express, {
+  Application,
+  Request,
+  Response,
+} from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
 
@@ -6,10 +10,10 @@ dotenv.config({ path: './src/config/config.env' });
 
 connectDB();
 
-const app = express();
-const PORT = process.env.PORT ?? 8000;
+const app: Application = express();
+const PORT: string = process.env.PORT ?? '8000';
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello');
 });
 
