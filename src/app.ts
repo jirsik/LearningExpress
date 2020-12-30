@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import path from 'path';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import exphbs from 'express-handlebars';
@@ -6,7 +7,7 @@ import exphbs from 'express-handlebars';
 import connectDB from './config/db';
 import router from './routes';
 
-dotenv.config({ path: './src/config/config.env' });
+dotenv.config({ path: path.join(__dirname, '/config/config.env') });
 
 connectDB();
 
@@ -21,7 +22,9 @@ app.engine('.hbs', exphbs({
   extname: '.hbs',
 }));
 app.set('view engine', '.hbs');
-app.set('views', './src/views');
+app.set('views', path.join(__dirname, '/views'));
+
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', router);
 
